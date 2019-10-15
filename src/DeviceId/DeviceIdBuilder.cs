@@ -12,6 +12,8 @@ namespace DeviceId
     /// </summary>
     public class DeviceIdBuilder
     {
+
+
         /// <summary>
         /// Gets or sets the formatter to use.
         /// </summary>

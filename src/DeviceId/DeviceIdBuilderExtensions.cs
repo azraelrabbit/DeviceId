@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using DeviceId.Components;
 
 namespace DeviceId
@@ -8,6 +9,35 @@ namespace DeviceId
     /// </summary>
     public static class DeviceIdBuilderExtensions
     {
+        private static PlatformID Platform { get; } = Environment.OSVersion.Platform;
+
+
+        public static Process Process { get; }
+
+
+        static DeviceIdBuilderExtensions()
+        {
+            if (Platform == PlatformID.Unix || Platform == PlatformID.MacOSX)
+            {
+                Process = new Process();
+
+                var pi = new ProcessStartInfo();
+
+
+                pi.RedirectStandardInput = true;
+                pi.RedirectStandardOutput = true;
+
+                pi.FileName = "bash";
+
+                Process.StartInfo = pi;
+
+                Process.Start();
+                Process.StandardInput.AutoFlush = true;
+            }
+            
+        }
+
+
         /// <summary>
         /// Use the specified formatter.
         /// </summary>
@@ -39,7 +69,10 @@ namespace DeviceId
         /// <returns>The <see cref="DeviceIdBuilder"/> instance.</returns>
         public static DeviceIdBuilder AddUserName(this DeviceIdBuilder builder)
         {
-            return builder.AddComponent(new DeviceIdComponent("UserName", Environment.UserName));
+             
+                return builder.AddComponent(new DeviceIdComponent("UserName", Environment.UserName));
+            
+           
         }
 
         /// <summary>
@@ -69,7 +102,15 @@ namespace DeviceId
         /// <returns>The <see cref="DeviceIdBuilder"/> instance.</returns>
         public static DeviceIdBuilder AddMacAddress(this DeviceIdBuilder builder)
         {
-            return builder.AddComponent(new WmiDeviceIdComponent("MACAddress", "Win32_NetworkAdapterConfiguration", "MACAddress"));
+            if (Platform == PlatformID.Unix||Platform==PlatformID.MacOSX)
+            {
+                return builder.AddComponent(new LinuxDeviceIdComponent("MACAddress", LinuxDeviceType.MACAddress,Process));
+            }
+            else
+            {
+                return builder.AddComponent(new WmiDeviceIdComponent("MACAddress", "Win32_NetworkAdapterConfiguration",
+                    "MACAddress"));
+            }
         }
 
         /// <summary>
@@ -78,8 +119,14 @@ namespace DeviceId
         /// <param name="builder">The <see cref="DeviceIdBuilder"/> to add the component to.</param>
         /// <returns>The <see cref="DeviceIdBuilder"/> instance.</returns>
         public static DeviceIdBuilder AddProcessorId(this DeviceIdBuilder builder)
-        {
-            return builder.AddComponent(new WmiDeviceIdComponent("ProcessorId", "Win32_Processor", "ProcessorId"));
+        { if (Platform == PlatformID.Unix||Platform==PlatformID.MacOSX)
+            {
+                return builder.AddComponent(new LinuxDeviceIdComponent("ProcessorId", LinuxDeviceType.ProcessorId,Process));
+            }
+            else
+            {
+                return builder.AddComponent(new WmiDeviceIdComponent("ProcessorId", "Win32_Processor", "ProcessorId"));
+            }
         }
 
         /// <summary>
@@ -89,7 +136,15 @@ namespace DeviceId
         /// <returns>The <see cref="DeviceIdBuilder"/> instance.</returns>
         public static DeviceIdBuilder AddMotherboardSerialNumber(this DeviceIdBuilder builder)
         {
-            return builder.AddComponent(new WmiDeviceIdComponent("MotherboardSerialNumber", "Win32_BaseBoard", "SerialNumber"));
+            if (Platform == PlatformID.Unix||Platform==PlatformID.MacOSX)
+            {
+                return builder.AddComponent(new LinuxDeviceIdComponent("MotherboardSerialNumber", LinuxDeviceType.ProcessorId,Process));
+            }
+            else
+            {
+                return builder.AddComponent(new WmiDeviceIdComponent("MotherboardSerialNumber", "Win32_BaseBoard",
+                    "SerialNumber"));
+            }
         }
 
         /// <summary>
@@ -99,7 +154,15 @@ namespace DeviceId
         /// <returns>The <see cref="DeviceIdBuilder"/> instance.</returns>
         public static DeviceIdBuilder AddSystemUUID(this DeviceIdBuilder builder)
         {
-            return builder.AddComponent(new WmiDeviceIdComponent("SystemUUID", "Win32_ComputerSystemProduct", "UUID"));
+            if (Platform == PlatformID.Unix||Platform==PlatformID.MacOSX)
+            {
+                return builder.AddComponent(new LinuxDeviceIdComponent("SystemUUID", LinuxDeviceType.SystemUUID,Process));
+            }
+            else
+            {
+                return builder.AddComponent(new WmiDeviceIdComponent("SystemUUID", "Win32_ComputerSystemProduct",
+                    "UUID"));
+            }
         }
 
         /// <summary>

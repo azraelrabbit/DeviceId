@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>DeviceId</PackageId>
+    <PackageId>AZ.DeviceId</PackageId>
     <Title>DeviceId</Title>
-    <Description>Provides functionality to generate a 'device ID' that can be used to uniquely identify a computer.</Description>
+    <Description>Provides functionality to generate a 'device ID' that can be used to uniquely identify a computer.
+on linux os , must be install dmidecode package boefore use this.</Description>
     <Authors>Matthew King</Authors>
     <Copyright>Copyright 2015-2019 Matthew King.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/MatthewKing/DeviceId</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/MatthewKing/DeviceId</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/azraelrabbit/DeviceId</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/azraelrabbit/DeviceId</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>deviceid;unique;device;identifier</PackageTags>
     <VersionPrefix>4.4.0</VersionPrefix>
@@ -17,6 +18,8 @@
   <PropertyGroup>
     <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>4.4.3</Version>
+    <PackageReleaseNotes>add .net core linux support.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
