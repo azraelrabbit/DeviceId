@@ -18,7 +18,7 @@ on linux os , must be install dmidecode package boefore use this.</Description>
   <PropertyGroup>
     <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>4.4.3</Version>
+    <Version>4.4.8</Version>
     <PackageReleaseNotes>add .net core linux support.</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -28,6 +28,10 @@ on linux os , must be install dmidecode package boefore use this.</Description>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.Management" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.6" />
   </ItemGroup>
 
 </Project>

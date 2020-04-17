@@ -42,6 +42,11 @@ namespace DeviceId.Components
         /// </summary>
         public string Name { get { return _name; } }
 
+        public void Dispose()
+        {
+            
+        }
+
         /// <summary>
         /// Gets the component value.
         /// </summary>

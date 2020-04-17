@@ -1,9 +1,11 @@
-﻿namespace DeviceId
+﻿using System;
+
+namespace DeviceId
 {
     /// <summary>
     /// Represents a component that forms part of a device identifier.
     /// </summary>
-    public interface IDeviceIdComponent
+    public interface IDeviceIdComponent:IDisposable
     {
         /// <summary>
         /// Gets the name of the component.

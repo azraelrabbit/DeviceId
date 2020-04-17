@@ -19,20 +19,20 @@ namespace DeviceId
         {
             if (Platform == PlatformID.Unix || Platform == PlatformID.MacOSX)
             {
-                Process = new Process();
+                //Process = new Process();
 
-                var pi = new ProcessStartInfo();
+                //var pi = new ProcessStartInfo();
 
 
-                pi.RedirectStandardInput = true;
-                pi.RedirectStandardOutput = true;
+                //pi.RedirectStandardInput = true;
+                //pi.RedirectStandardOutput = true;
 
-                pi.FileName = "bash";
+                //pi.FileName = "bash";
 
-                Process.StartInfo = pi;
+                //Process.StartInfo = pi;
 
-                Process.Start();
-                Process.StandardInput.AutoFlush = true;
+                //Process.Start();
+                //Process.StandardInput.AutoFlush = true;
             }
             
         }
